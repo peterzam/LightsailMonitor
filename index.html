@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base target="_blank" />
+    <title>Simple Server 🤟 Peter Zam</title>
+    <link rel="shortcut icon" type="image/png" href="./assets/favicon.png" />
+  </head>
+  <body>
+    <h2>Simple Server:</h2>
+    <div id="ip"></div>
+    <div id="stat"></div>
+    <div id="traffic"></div>
+    <div id="time"></div>
+    <h3><a href="https://github.com/peterzam/SimpleServer">About</a></h3>
+    <script type="text/javascript">
+      var exampleSocket = new WebSocket(
+        "wss://go-simpleserver.herokuapp.com/ws" //"wss://" + window.location.host + "/ws"
+      );
+      var update = function () {
+        exampleSocket.onmessage = function (event) {
+          var Arr = event.data.split("|");
+          ip.textContent = Arr[0].toString();
+          stat.textContent = Arr[1].toString();
+          traffic.textContent = Arr[2].toString();
+          time.textContent = Arr[3].toString() + "/300";
+        };
+      };
+      window.setTimeout(update);
+    </script>
+  </body>
+</html>
